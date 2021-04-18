@@ -1,6 +1,12 @@
-# bebra-frontend
+# Bebras-FrontEnd
 
-## Project setup
+## Created using
+```
+Vue 3 and Tailwind CSS
+
+```
+
+## Project setup for Bebras Front-End
 ```
 npm install
 ```
