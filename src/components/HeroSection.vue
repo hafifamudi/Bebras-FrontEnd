@@ -1,20 +1,21 @@
 <template>
-    <div class="flex items-center pt-10 px-5 md:px-0">
-        <div class="w-1/2 pt-20" data-aos="fade-right" data-aos-duration="1000">
-            <h1 class="text-4xl text-white mb-5">
+    <div class="md:flex md:items-center pt-10 px-5 md:px-0">
+        <div class="md:mx-2 mt-40 md:mt-10   md:w-1/2 w-full pt-20 animate__animated animate__fadeInLeft animate__delay-1s">
+            <h1 class="md:text-4xl text-2xl text-white mb-5">
                        <u class="text-underline" style="text-decoration-color:#1ABC9C">Computational Thinking</u> <br/> Berpikir dengan landasan Komputasi atau Informatika <br/>
             </h1>
-                <p class="text-white text-xl font-light mb-8">
+                <p class="text-white md:text-xl text-1xl font-light mb-8">
                        di kalangan guru dan murid mulai tingkat SD, <br/> 
                        serta untuk masyarakat luas.
                 </p>
-                <button
-                        class="block bg-orange-button hover:bg-green-button text-white font-semibold px-12 py-3 text-xl rounded-full"
-                    >
+                <router-link
+                    to="/posts"
+                    class="block mx-auto text-center w-50 md:w-1/2 md:mx-1 bg-orange-button hover:bg-green-button text-white font-semibold px-12 py-3 md:text-xl rounded-full"
+                >
                         Ketahui Lebih
-                </button>
+                </router-link>
         </div>
-            <div class="w-1/2 flex justify-center" data-aos="fade-left" data-aos-duration="1000">
+            <div class="md:w-1/2 md:flex md:justify-center animate__animated animate__fadeInRight animate__delay-1s">
                 <div id="hero-animate"
                 @mousemove="onHandleMouse"
                 @mouseout="onMouseOut"
@@ -28,6 +29,24 @@
 
     </div>
 </template>
+
+<style scoped>
+    @media only screen and (max-width: 670px) {
+        #hero-animate img {
+            position: absolute;
+            margin-top:-550px !important;
+        }     
+
+    }
+
+    @media only screen and (max-width: 764px) {
+        #hero-animate img {
+            position: absolute;
+            margin-top:-500px !important;
+        }     
+
+    }
+</style>
 
 
 <script>

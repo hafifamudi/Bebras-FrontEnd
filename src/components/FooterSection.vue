@@ -1,9 +1,9 @@
 <template>
-     <div class="cta-clip -mt-20"></div>
+     <div class="cta-clip -mt-40"></div>
       <section class="call-to-action bg-red-footer pt-64 pb-10">
         <div class="container mx-auto">
           <div class="w-full text-center">
-            <h1 class="text-5xl text-white font-semibold"  data-aos="fade-left" data-aos-duration="3000">
+            <h1 class="text-5xl text-white font-semibold">
               Ketahui lebih lanjut tentanng
               <br />
               Bebras Indonesia
@@ -17,8 +17,8 @@
         </div>
       </section>
       <footer class="bg-red-footer py-20 text-white text-lg">
-        <div class="container mx-auto"  data-aos="fade-down" data-aos-duration="1000">
-          <div class="sm:flex mb-4">
+        <div class="container mx-auto">
+          <div class="sm:flex mb-4 mx-2">
             <div class="sm:w-1/2 sm:mt-0 mt-8 h-auto"> 
               <img src="/LogoHeaderComplete.png" style="height: 100px" alt="" class="mb-3" />
               <p class="font-light">
