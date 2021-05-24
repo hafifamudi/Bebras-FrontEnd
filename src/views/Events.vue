@@ -1,11 +1,8 @@
 <template>
-    <nav-search
-        :searchKeyword="categorys"
-    />
     
-    <div v-if="loading">
+    <dv v-if="loading">
         <loading/>
-    </div>
+    </dv>
     
     <div class="container my-12 mx-auto px-4 md:grid md:gap-4 md:px-12 absolute my-30 md:mx-10">
         <div class="grid grid-cols-1 md:grid-cols-3 md:gap-4">
@@ -92,12 +89,10 @@
 
 <script>
 import axios from 'axios'
-import NavSearch from '../components/NavSearch.vue'
 import Loading from '../components/Loading.vue'
 
 export default {
     components:{
-        NavSearch,
         Loading,
     },
     name:'Events',

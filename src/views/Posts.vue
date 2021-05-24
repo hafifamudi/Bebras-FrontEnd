@@ -1,6 +1,7 @@
 <template>
     <nav-search
         :searchKeyword="categorys"
+        @search="getAllEvents"
     />
     
     <div v-if="loading">
@@ -107,12 +108,21 @@ export default {
       this.getAllCategory()
     },
     methods: {
-      async getAllEvents() {
+      async getAllEvents(value) {
+        let uri = '/api/post/'
+
+        if (value) {
+            uri = `/api/category/${value}`
+        }
+        
+        this.posts = []
+        this.loading = true
+        
         await axios
-        .get('/api/post/')
+        .get(uri)
         .then(res => {
           const {data} = res.data.data
-          
+        
           for (let index = 0; index < 3; index++) {
             if (data[index].created_at != null){
                 data[index].created_at = data[index].created_at.split('-').join(' ')
