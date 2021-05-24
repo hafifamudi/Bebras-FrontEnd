@@ -13,32 +13,48 @@
 
               <h3 class="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia libero voluptates architecto perspiciatis harum modi exercitationem magnam quasi earum. Numquam cupiditate iure et doloremque illum cum laboriosam odio, ratione dolorum?</h3>
         </div>   
-    </div>
+    </div> -->
 
 
 
 </template>
 
 <style scoped>
-  img {
-   height: 100%;
-   width: 100%;
- }
+ img .card-image{
+      height: 804px;
+      width: 800px;
+  } 
   nav {
     margin: 10px 0 0 10px !important;
   }
+
+  
 </style>
 <script>
-
+import axios from 'axios'
 
 export default {
+  name:'About',
   data(){
     return {
-      
+      posts: [],
+      image: axios.defaults.baseURL + 'images/',
     }
   },
- mounted() {
- 
+  mounted(){
+    this.getAllPosts()
+  },
+  methods: {
+      async getAllPosts() {
+        await axios
+        .get('/api/post/')
+        .then(res => {
+          const {data} = res.data.data
+          this.posts = data
+          this.loading = false
+        })
+        .catch(err => console.log(err))
+    },
   }
 }
 </script>

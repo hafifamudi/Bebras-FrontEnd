@@ -7,12 +7,12 @@
         <loading/>
     </div>
     
-    <div class="container my-12 mx-auto px-4 md:px-12 absolute my-30">
-
-        <div class="card-post flex flex-wrap -mx-1 lg:-mx-4 my-10" v-for="event in events" :key="event.id">
+    <div class="container my-12 mx-auto px-4 md:grid md:gap-4 md:px-12 absolute my-30 md:mx-10">
+        <div class="grid grid-cols-1 md:grid-cols-3 md:gap-4">
+            <div class="card-post -mx-1 lg:-mx-4 my-10" v-for="event in events" :key="event.id">
 
         <!-- Column -->
-        <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
+        <div class="my-1 px-1 w-full md:w-full lg:my-4 lg:px-4 lg:w-full">
 
             <!-- Article -->
             <article class="overflow-hidden rounded-lg shadow-lg">
@@ -27,7 +27,7 @@
                         </a>
                     </h1>
                     <p class="text-grey-darker text-sm">
-                        {{ EventTime }}
+                        {{ event.created_at }}
                     </p>
                 </header>
 
@@ -47,10 +47,34 @@
 
             </article>
             <!-- END Article -->
-
         </div>
         <!-- END Column -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+            </div>
+        </div>
+      
+    <div class="md:flex md:justify-center">
+     <button
+            @click="loadMore"
+            class="mb-3 block mx-auto text-center w-full md:w-1/3 md:mx-1 bg-orange-button hover:bg-green-button text-white font-semibold px-12 py-3 md:text-1xl rounded-full"
+            :disabled="disabled"
+            >
+            Muat lebih banyak
+        </button>
     </div>
+  
 </div>
 </template>
 
@@ -59,6 +83,11 @@
    .card-post {
        margin-top: 70px !important;
    }
+
+    button:disabled {
+        cursor: not-allowed;
+        background: #ccc;
+    }
 </style>
 
 <script>
@@ -76,47 +105,80 @@ export default {
       return {
         events: [],
         categorys:[],
-        EventTime: '',
         loading: true,
+        nextPage: 1,
+        disabled: false,
     }
   },
-    mounted(){
-      this.getAllEvents()
-      this.getAllPostCategory()
+    mounted() {
+        this.getAllEvents()
+        this.getAllCategory()
     },
     methods: {
       async getAllEvents() {
         await axios
-        .get('/api/event/')
+        .get('/api/event')
         .then(res => {
           const {data} = res.data.data
-          this.events = data
-          this.EventTime = data[0].created_at
-          
-          this.getDate()
+        
+          for (let index = 0; index < data.length; index++) {
+            if (data[index].created_at != null){
+                data[index].created_at = data[index].created_at.split('-').join(' ')
+                data[index].created_at = data[index].created_at.split('').splice(0,10).join('')
+            }
+
+            this.events.push(data[index]);           
+          }
+
           this.loading = false
         })
         .catch(err => console.log(err))
     },
 
-        async getAllPostCategory() {
+        async getAllCategory() {
         await axios
         .get('/api/category/')
         .then(res => {
           const {data} = res.data.data
           this.categorys = data
-          console.log(data);
+
         })
         .catch(err => console.log(err))
     },
 
-        async getDate() {
-            let time = this.EventTime
-            time = time.split('-').join(' ')
-            time = time.split('').splice(0,10).join('')
+        async loadMore() {
+            let uri = `/api/event?page=`+ this.nextPage;
+
             
-            this.EventTime = time
-        }
+            await axios
+                .get(uri)
+                .then(res => {
+                const {data} = res.data
+                const {data: getData} = res.data.data
+                
+                if (data.total < data.per_page){ 
+                    this.disabled = true
+                    
+                    return
+                }
+
+                if (data.current_page <= data.last_page){
+                    this.nextPage = data.current_page + 1
+                    this.disabled = false
+
+                    getData.forEach(data => {
+                    this.categorys.push(data)
+                    })
+
+                }else{
+                    this.loadMoreData = false
+                    this.disabled = true
+                }
+
+                this.loading = false
+                })
+                .catch(err => console.log(err))
+        },
   }
 }
 

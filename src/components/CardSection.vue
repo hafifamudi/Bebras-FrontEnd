@@ -12,77 +12,87 @@
           <img src="/loading.svg" class="mx-auto" alt="">
         </div>
 
-         <div class="md:flex mt-3 -mx-6 p-5">
-          <splide :options="options">
-          <splide-slide :key="posts.image">
 
-          <div
-            class="card-project mx-6 my-4 p-5 w-50 border border-gray-500 rounded-20"
-            v-for="post in posts"
-            :key="post.id">
-            <div class="item">
-              <figure class="item-image">
-                <img
-                  :src="image+post.image"
-                  alt="Post Photo"
-                  class="rounded-20 w-full"
-                />
-              </figure>
-              <div class="item-meta">
-                <h4 class="text-3xl text-center font-medium text-gray-900 mt-5">
-                  {{post.title}}
-                </h4>
-                <p class="text-md text-center font-light text-gray-900">
-                  {{post.content}}
-                </p>
-              </div>
-              <router-link
-                :to="'/post/'+post.slug"
-                class="text-center mt-5 md:button-cta block md:w-full bg-orange-button hover:bg-green-button text-white font-semibold px-6 py-2 text-lg rounded-full"
-              >
-                Detail
-              </router-link>
-            </div>
-          </div>
+        <div class="container my-12 mx-auto px-4 md:grid md:gap-4 md:grid-cols-3 md:px-12 my-30">
 
-        </splide-slide>
-        </splide>   
+        <div class="card-post flex flex-wrap -mx-1 lg:-mx-4 my-10" 
+        v-for="post in posts" 
+        :key="post.id">
+
+        <!-- Column -->
+        <div class="my-1 px-1 w-full md:w-full lg:my-4 lg:px-4 lg:w-full">
+
+            <!-- Article -->
+            <article class="overflow-hidden rounded-lg shadow-lg">
+                <a href="#">
+                    <img alt="Placeholder" class="block h-auto w-full" :src="image+post.image">
+                </a>
+
+                <header class="flex items-center justify-between leading-tight p-2 md:p-4 bg-white">
+                    <h1 class="text-lg">
+                        <a class="no-underline hover:underline text-black" href="#">
+                           {{ post.title }}
+                        </a>
+                    </h1>
+                    <p class="text-grey-darker text-sm">
+                        {{ post.created_at }}
+                    </p>
+                </header>
+
+                <footer class="flex md:flex-col items-center justify-between leading-none p-2 md:p-4 bg-white">
+                    <a class="flex items-center no-underline hover:underline text-black" href="#"> 
+                        <img alt="Placeholder" class="block rounded-full" :src="image+post.image" style="width: 32px; height: 32px;">
+                        <p class="ml-2 text-sm">
+                            {{ post.content }}
+                        </p>
+                    </a>
+                    <router-link 
+                    :to="'/post/'+post.slug"
+                    class="bg-purple-hover p-3 md:my-7 no-underline text-grey-darker hover:bg-green-button rounded-full" href="#">
+                        Selengkapnya
+                    </router-link>
+                </footer>
+
+            </article>
+            <!-- END Article -->
+
         </div>
-
-      </section>
+        <!-- END Column -->
+    </div>
+        </div>
+    </section>
+    <div class="md:flex md:justify-center">
+      <router-link
+            to='/posts'
+            class="mb-3 block mx-auto text-center w-full md:w-1/3 content-center md:mx-1 bg-orange-button hover:bg-green-button text-white font-semibold px-12 py-3 md:text-1xl rounded-full"
+            :disabled="disabled"
+            >
+            Lihat semua Post
+        </router-link>
+    </div>
+  
 </template>
 
 <style scoped>
-	img {
-   height: 300px;
-   width: 550px;
- }
+    .card-image {
+      height: 804px;
+      width: 800px;
+    } 
 </style>
-
 
 <script>
 import axios from 'axios'
-import { Splide, SplideSlide } from '@splidejs/vue-splide';
 
-import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 
 export default {
     name:'CardSection',
-    components: {
-    Splide,
-    SplideSlide,
-    },
-    options: {
-			rewind : true,
-			width  : 800,
-			perPage: 3,
-			gap    : '1rem',
-		},
     data() {
       return {
         posts: [],
         image: axios.defaults.baseURL + 'images/',
         loading: true,
+        PostTime: [],
+        perPage: 3,
     }
   },
     mounted(){
@@ -94,11 +104,22 @@ export default {
         .get('/api/post/')
         .then(res => {
           const {data} = res.data.data
-          this.posts = data
+
+          for (let index = 0; index < this.perPage; index++) {
+            if (data[index].created_at != null){
+                data[index].created_at = data[index].created_at.split('-').join(' ')
+                data[index].created_at = data[index].created_at.split('').splice(0,10).join('')
+            }
+
+            this.posts.push(data[index]);           
+          }
+          
+
+          console.log(this.posts);
           this.loading = false
         })
         .catch(err => console.log(err))
     },
-  }
+}
 } 
 </script>

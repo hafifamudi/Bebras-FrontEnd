@@ -10,7 +10,7 @@
             }"
             id="navbar" @click="ResponsiveNavbar">   
                 <div>
-                    <img src="/LogoHeaderComplete.png"  style="height: 100px" alt="logo" class="h-full" />
+                    <img @click="imgLink" src="/LogoHeaderComplete.png"  style="height: 100px" alt="logo" class="h-full" />
                 </div>
                 <ul class="md:flex md:ml-auto md:items-center mt-2">
                 <li>
@@ -45,7 +45,7 @@
                     <router-link
                     class="block md:inline-block hover:text-teal-500 text-lg px-4 py-3"
                     :class="[ 
-                        getCurrentRoute === 'Event'  ? 'text-white' : 'text-black'
+                        getCurrentRoute === 'Events'  ? 'text-white' : 'text-black'
                     ]"
                     to="/events"
                     >Events</router-link
@@ -67,6 +67,9 @@
 </template>
 
 <style scoped>
+    img {
+        cursor: pointer;
+    }
     @media only screen and (max-width: 670px) {
         .navbar {
             display: flex;
@@ -155,6 +158,10 @@ export default {
                 }
             }
         },
+
+        imgLink(){
+            this.$router.push({name: 'Home'})
+        }
 
     },
 }

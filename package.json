@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@fortawesome/vue-fontawesome": "^3.0.0-3",
+    "@hennge/vue3-pagination": "^1.0.17",
     "@splidejs/vue-splide": "^0.3.5",
     "@tailwindcss/postcss7-compat": "^2.0.2",
     "autoprefixer": "^9",

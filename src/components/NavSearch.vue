@@ -68,8 +68,7 @@ export default {
       this.show = !this.show
     },
     getCategory(value){
-      // localStorage.setItem('searchKeyword', value)
-      this.$emit('search', value)
+      this.$emit('search', value.toLowerCase())
     },
 
   }
