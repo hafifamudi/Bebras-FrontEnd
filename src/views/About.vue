@@ -11,12 +11,11 @@
                  <img src="/HeroImage.png" alt="bebras-indonesia hero image" class="mb-10" />
               </div>
 
-              <h3 class="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia libero voluptates architecto perspiciatis harum modi exercitationem magnam quasi earum. Numquam cupiditate iure et doloremque illum cum laboriosam odio, ratione dolorum?</h3>
+              <h3 class="text-center">Bebras adalah sebuah inisiatif internasional yang tujuannya adalah untuk mempromosikan Computational Thinking (Berpikir dengan landasan Komputasi atau Informatika), di kalangan guru dan murid mulai tingkat SD, serta untuk masyarakat luas.</h3>
         </div>   
-    </div> -->
+    </div> 
 
-
-
+   
 </template>
 
 <style scoped>
@@ -28,6 +27,11 @@
     margin: 10px 0 0 10px !important;
   }
 
+
+button:disabled {
+  cursor: not-allowed;
+  background: #ccc;
+}
   
 </style>
 <script>
@@ -37,24 +41,73 @@ export default {
   name:'About',
   data(){
     return {
-      posts: [],
+      slider: [],
       image: axios.defaults.baseURL + 'images/',
+      images: [
+        "https://cdn.pixabay.com/photo/2015/12/12/15/24/amsterdam-1089646_1280.jpg",
+        "https://cdn.pixabay.com/photo/2016/02/17/23/03/usa-1206240_1280.jpg",
+        "https://cdn.pixabay.com/photo/2015/05/15/14/27/eiffel-tower-768501_1280.jpg",
+        "https://cdn.pixabay.com/photo/2016/12/04/19/30/berlin-cathedral-1882397_1280.jpg"
+      ],
+      timer: null,
+      currentIndex: 1,
+      disabled: false,
+      animateClass: 1
     }
   },
   mounted(){
-    this.getAllPosts()
+    this.getSlider()
   },
   methods: {
-      async getAllPosts() {
+      startSlide() {
+      this.timer = setInterval(this.next, 4000);
+    },
+      next() {
+      this.animateClass = 1
+
+      if (this.currentIndex > this.slider.length){
+        this.disabled = true
+        return
+      }else{
+        this.disabled = false
+        this.currentIndex += 1;
+      }
+      console.log(this.currentIndex);
+    },
+      prev() {
+      this.animateClass = 2
+      
+      if (this.currentIndex == 1){
+        this.disabled = true
+        return
+      }else{
+        this.disabled = false
+        this.currentIndex -= 1;
+      }    
+      console.log(this.currentIndex);
+    },
+    async getSlider() {
         await axios
-        .get('/api/post/')
+        .get('/api/slider/')
         .then(res => {
           const {data} = res.data.data
-          this.posts = data
+
+          data.forEach(item => {
+            if (item.image != null) {
+              this.slider.push(item.image)
+            }
+          });
+          console.log(this.currentIndex);
           this.loading = false
         })
         .catch(err => console.log(err))
     },
+  },
+  
+  computed:{
+    currentImg() {
+      return this.slider[Math.abs(this.currentIndex) % this.slider.length];
+    }
   }
 }
 </script>
