@@ -141,8 +141,8 @@ export default {
     methods: {
         ResponsiveNavbar(){
             const body = document.getElementsByTagName('body')[0];
-            
-            if (body.clientWidth >= 914){
+
+            if (body.clientWidth >= 914 || body.clientWidth >= 529){
                 this.desktop = true
                 this.show = false
             }else {

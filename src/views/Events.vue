@@ -4,7 +4,7 @@
         <loading/>
     </dv>
     
-    <div class="container my-12 mx-auto px-4 md:grid md:gap-4 md:px-12 absolute my-30 md:mx-10">
+    <div class="container my-12 mx-auto px-4 md:grid md:gap-4 md:px-12 absolute my-30 lg:mx-10">
         <div class="grid grid-cols-1 md:grid-cols-3 md:gap-4">
             <div class="card-post -mx-1 lg:-mx-4 my-10" v-for="event in events" :key="event.id">
 

@@ -8,7 +8,7 @@
         <loading/>
     </div>
     
-    <div class="container mx-auto px-4 absolute my-20 md:mx-10"> 
+    <div class="container mx-auto px-4 absolute my-20 lg:mx-10"> 
         <div class="grid grid-cols-1 md:grid-cols-3 md:gap-4">  
             <section class="py-8 px-4" v-for="galery in galerys" :key="galery.id">
                 <div class="-mx-4">
@@ -102,7 +102,6 @@ export default {
             const {data} = res.data.data
             this.galerys = data
 
-            console.log(res);
             this.loading = false
             })
             .catch(err => console.log(err))

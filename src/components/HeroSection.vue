@@ -3,7 +3,7 @@
     class="relative"
     @mouseenter="toggelSlider"
     >
-        <div 
+    <div 
     class="md:flex md:items-center pt-10 px-5 md:px-0 relative"
     :class="{
         'hide': currentIndex != 1,
@@ -16,7 +16,7 @@
             <h1 class="md:text-4xl text-2xl text-white mb-5">
                        <u class="text-underline" style="text-decoration-color:#1ABC9C">Computational Thinking</u> <br/> Berpikir dengan landasan Komputasi atau Informatika <br/>
             </h1>
-                <p class="text-white md:text-xl text-1xl font-light mb-8">
+                <p class="text-white lg:text-2xl md:text-1xl text-1xl font-light mb-8">
                        di kalangan guru dan murid mulai tingkat SD, <br/> 
                        serta untuk masyarakat luas.
                 </p>
@@ -228,7 +228,6 @@ export default {
               this.slider.push(item.image)
             }
           });
-          console.log(this.slider);
           this.loading = false
         })
         .catch(err => console.log(err))

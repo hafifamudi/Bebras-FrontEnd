@@ -116,7 +116,6 @@ export default {
                 const {data} = res.data
                 this.post = data
                 this.loading = false
-                console.log(data);
                 })
                 .catch(err => console.log(err))
         }

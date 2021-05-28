@@ -115,7 +115,6 @@ export default {
           }
           
 
-          console.log(this.posts);
           this.loading = false
         })
         .catch(err => console.log(err))

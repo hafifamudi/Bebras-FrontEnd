@@ -97,7 +97,6 @@ export default {
               this.slider.push(item.image)
             }
           });
-          console.log(this.currentIndex);
           this.loading = false
         })
         .catch(err => console.log(err))

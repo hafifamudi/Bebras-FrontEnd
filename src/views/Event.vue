@@ -115,7 +115,6 @@ export default {
                 const {data} = res.data
                 this.event = data
                 this.loading = false
-                console.log(data);
                 })
                 .catch(err => console.log(err))
         }
