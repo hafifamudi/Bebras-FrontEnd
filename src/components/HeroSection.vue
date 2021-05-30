@@ -45,7 +45,7 @@
         v-for="i in [currentIndex]" 
         :key="i"  
         :class="{
-          'hidden': currentIndex != 2,
+          'hidden': currentIndex == 1,
           'animate__animated animate__fadeInRight' : animateClass == 1,
           'animate__animated animate__fadeInLeft' : animateClass == 2
         }"
@@ -228,6 +228,8 @@ export default {
               this.slider.push(item.image)
             }
           });
+
+          console.log(this.slider);
           this.loading = false
         })
         .catch(err => console.log(err))

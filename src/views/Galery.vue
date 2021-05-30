@@ -19,7 +19,7 @@
 
                 <div id="videos" class="relative mb-5" v-if="galery.link">
                     <iframe class="rounded-20 w-full" height="300px" 
-                    src="https://www.youtube.com/embed/tgbNymZ7vqY">
+                    :src="galery.link">
                     </iframe> 
                 </div>
 
