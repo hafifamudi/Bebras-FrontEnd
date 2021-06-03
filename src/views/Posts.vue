@@ -1,7 +1,7 @@
 <template>
     <nav-search
         :searchKeyword="categorys"
-        @search="getAllEvents"
+        @search="getAllPosts"
     />
     
     <div v-if="loading">
@@ -109,11 +109,11 @@ export default {
     }
   },
     mounted(){
-      this.getAllEvents()
+      this.getAllPosts()
       this.getAllCategory()
     },
     methods: {
-      async getAllEvents(value) {
+      async getAllPosts(value) {
         let uri = process.env.VUE_APP_API_ENDPOINT  + 'api/post'
 
         if (value) {
@@ -149,7 +149,7 @@ export default {
 
         async getAllCategory() {
         await axios
-        .get(process.env.VUE_APP_API_ENDPOINT  + 'api/category/')
+        .get(process.env.VUE_APP_API_ENDPOINT  + 'api/category')
         .then(res => {
           const {data} = res.data.data
           this.categorys = data

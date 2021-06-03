@@ -64,7 +64,7 @@
     </div>
         </div>
     </section>
-    <div class="md:flex md:justify-center">
+    <div class="md:flex md:justify-center p-5">
       <router-link
             to='/posts'
             class="mb-3 block mx-auto text-center w-full md:w-1/3 content-center md:mx-1 bg-orange-button hover:bg-green-button text-white font-semibold px-12 py-3 md:text-1xl rounded-full"
