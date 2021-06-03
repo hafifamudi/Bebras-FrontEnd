@@ -25,7 +25,7 @@
             <!-- Article -->
             <article class="overflow-hidden rounded-lg shadow-lg">
                 <a href="#">
-                    <img alt="Placeholder" class="block h-auto w-full" :src="image+post.image">
+                    <img alt="Placeholder" class="block h-auto w-full" src="https://source.unsplash.com/random">
                 </a>
 
                 <header class="flex items-center justify-between leading-tight p-2 md:p-4 bg-white">
@@ -41,9 +41,9 @@
 
                 <footer class="flex md:flex-col items-center justify-between leading-none p-2 md:p-4 bg-white">
                     <a class="flex items-center no-underline hover:underline text-black" href="#"> 
-                        <img alt="Placeholder" class="block rounded-full" :src="image+post.image" style="width: 32px; height: 32px;">
+                        <img alt="Placeholder" class="block rounded-full" src="https://source.unsplash.com/random" style="width: 32px; height: 32px;">
                         <p class="ml-2 text-sm">
-                            {{ post.content }}
+				<span v-html="post.content"></span>
                         </p>
                     </a>
                     <router-link 
@@ -82,14 +82,14 @@
 
 <script>
 import axios from 'axios'
-
+import {API_URL} from '../helper/config'
 
 export default {
     name:'CardSection',
     data() {
       return {
         posts: [],
-        image: axios.defaults.baseURL + 'images/',
+        image:  API_URL + 'images/',
         loading: true,
         PostTime: [],
         perPage: 3,
@@ -114,6 +114,7 @@ export default {
             this.posts.push(data[index]);           
           }
           
+          console.log(API_URL)
 
           this.loading = false
         })

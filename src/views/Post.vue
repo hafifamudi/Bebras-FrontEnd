@@ -5,7 +5,7 @@
             <div  v-if="loading" class="loading my-20">
                 <img src="/loading.svg" class="mx-auto" alt="">
             </div>
-                <img class="rounded-20" :src="image+post.image" alt="">
+                <img class="rounded-20" src="https://source.unsplash.com/random" alt="">
                     <div class="content-post">
                         <h2><strong>{{post.title}}</strong></h2>
                         <h3>{{post.content}}</h3>
