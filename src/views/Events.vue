@@ -123,12 +123,12 @@ export default {
           
           if (counter != 0){
            for (let index = 0; index < counter; index++) {
-            this.currentEvent.push(data[index].id)
-            this.events.push(data[index]);           
-          }
+                this.currentEvent.push(data[index].id)
+                this.events.push(data[index]);           
+            }
           
           }else {
-		this.isData = false
+            this.isData = false
           }
 
           this.loading = false

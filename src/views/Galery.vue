@@ -109,18 +109,20 @@ export default {
                 const {data} = res.data.data
                 const counter = data.length >= 3 ? 3 : data.length
 		
-		if (counter != 0) {
+            if (counter != 0) {
                 for (let index = 0; index < counter ; index++) {
+
                     if (this.search === 'photo') {
-			this.currentPhoto.push(data[index].id)
+                        this.currentPhoto.push(data[index].id)
+                    
                     } else if (this.search === 'video') {
-			this.currentVideo.push(data[index].id)
+                        this.currentVideo.push(data[index].id)
                     }
 
                     this.galerys.push(data[index])      
                 }
 		}
-		else{
+		else{			
 			this.isData = false
 		}
                 this.loading = false
