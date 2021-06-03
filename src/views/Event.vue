@@ -110,7 +110,7 @@ export default {
         async getPost(){
             const eventSlug = this.$route.params.event_slug
             await axios
-                .get(`/api/event/${eventSlug}`)
+                .get(process.env.VUE_APP_API_ENDPOINT + `api/event/${eventSlug}`)
                 .then(res => {
                 const {data} = res.data
                 this.event = data

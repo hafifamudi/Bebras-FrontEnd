@@ -8,12 +8,12 @@
                 <img class="rounded-20" src="https://source.unsplash.com/random" alt="">
                     <div class="content-post">
                         <h2><strong>{{post.title}}</strong></h2>
-                        <h3>{{post.content}}</h3>
+                        <h3><span v-html="post.content"></span></h3>
                     </div>   
                     <router-link
                     to="/"
                     class="back-button text-center bg-orange-button hover:bg-green-button text-white font-semibold px-6 py-2 md:text-lg rounded-full"
-                    >
+                    >                                        
                     Kembali
                     </router-link>    
             </div>
@@ -111,7 +111,7 @@ export default {
         async getPost(){
             const postSlug = this.$route.params.post_slug
             await axios
-                .get(`/api/post/${postSlug}`)
+                .get(process.env.VUE_APP_API_ENDPOINT + `api/post/${postSlug}`)
                 .then(res => {
                 const {data} = res.data
                 this.post = data

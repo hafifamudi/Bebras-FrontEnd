@@ -104,7 +104,7 @@ export default {
             this.loading = true
             this.refreshCategory()
             await axios
-                .get(`/api/${this.search}/`)
+                .get(process.env.VUE_APP_API_ENDPOINT + `api/${this.search}/`)
                 .then(res => {
                 const {data} = res.data.data
                 const counter = data.length >= 3 ? 3 : data.length
@@ -129,7 +129,7 @@ export default {
         },
 
         async loadMore() {
-            let uri = `/api/${this.search}?page=`+ this.nextPage;
+            let uri = process.env.VUE_APP_API_ENDPOINT + `api/${this.search}?page=`+ this.nextPage;
 
 
             await axios

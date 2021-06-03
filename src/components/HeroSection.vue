@@ -131,7 +131,7 @@ export default {
    data(){
        return {
             slider: [],
-            image: axios.defaults.baseURL + 'images/',
+            image: process.env.VUE_APP_API_ENDPOINT + 'images/',
             timer: null,
             currentIndex: 1,
             animateClass: 1,
@@ -219,7 +219,7 @@ export default {
 
     async getSlider() {
         await axios
-        .get('/api/slider/')
+        .get(process.env.VUE_APP_API_ENDPOINT + 'api/slider/')
         .then(res => {
           const {data} = res.data.data
 

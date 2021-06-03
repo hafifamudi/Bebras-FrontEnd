@@ -56,7 +56,7 @@
             </article>
             <!-- END Article -->
 
-        </div>
+        </div>  
         <!-- END Column -->
     </div>
         </div>
@@ -82,14 +82,13 @@
 
 <script>
 import axios from 'axios'
-import {API_URL} from '../helper/config'
 
 export default {
     name:'CardSection',
     data() {
       return {
         posts: [],
-        image:  API_URL + 'images/',
+        image:  process.env.VUE_APP_API_ENDPOINT + 'images/',
         loading: true,
         PostTime: [],
         perPage: 3,
@@ -101,10 +100,10 @@ export default {
     methods: {
       async getAllPosts() {
         await axios
-        .get('/api/post/')
+        .get(process.env.VUE_APP_API_ENDPOINT + 'api/post/')
         .then(res => {
           const {data} = res.data.data
-
+          console.log(process.env.VUE_APP_API_ENDPOINT)
           for (let index = 0; index < this.perPage; index++) {
             if (data[index].created_at != null){
                 data[index].created_at = data[index].created_at.split('-').join(' ')
@@ -114,7 +113,7 @@ export default {
             this.posts.push(data[index]);           
           }
           
-          console.log(API_URL)
+
 
           this.loading = false
         })

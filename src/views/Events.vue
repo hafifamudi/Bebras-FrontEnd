@@ -116,7 +116,7 @@ export default {
     methods: {
       async getAllEvents() {
         await axios
-        .get('/api/event')
+        .get(process.env.VUE_APP_API_ENDPOINT + 'api/event')
         .then(res => {
           const {data} = res.data.data
           const counter = data.length >= 3 ? 3 : data.length
@@ -135,10 +135,10 @@ export default {
         })
         .catch(err => console.log(err))
     },
-
+    
         async getAllCategory() {
         await axios
-        .get('/api/category/')
+        .get(process.env.VUE_APP_API_ENDPOINT + 'api/category/')
         .then(res => {
           const {data} = res.data.data
           this.categorys = data
@@ -148,7 +148,7 @@ export default {
     },
 
         async loadMore() {
-            let uri = `/api/event?page=`+ this.nextPage;
+            let uri = process.env.VUE_APP_API_ENDPOINT + `api/event?page=`+ this.nextPage;
 
             
             await axios

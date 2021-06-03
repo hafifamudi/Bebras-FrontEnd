@@ -103,7 +103,7 @@ export default {
         categorys:[],
         currentPost:[],
         loading: true,
-        image: axios.defaults.baseURL + 'images/',
+        image: process.env.VUE_APP_API_ENDPOINT  + 'images/',
         disabled: false,
         isData: true,
     }
@@ -114,10 +114,10 @@ export default {
     },
     methods: {
       async getAllEvents(value) {
-        let uri = '/api/post/'
+        let uri = process.env.VUE_APP_API_ENDPOINT  + 'api/post'
 
         if (value) {
-            uri = `/api/category/${value}`
+            uri = process.env.VUE_APP_API_ENDPOINT  + `api/category/${value}`
         }
         
         this.posts = []
@@ -149,7 +149,7 @@ export default {
 
         async getAllCategory() {
         await axios
-        .get('/api/category/')
+        .get(process.env.VUE_APP_API_ENDPOINT  + 'api/category/')
         .then(res => {
           const {data} = res.data.data
           this.categorys = data
@@ -158,7 +158,7 @@ export default {
     },
   
         async loadMore() {
-            let uri = `/api/post?page=`+ this.nextPage;
+            let uri = process.env.VUE_APP_API_ENDPOINT + `api/post?page=`+ this.nextPage;
 
             await axios
                 .get(uri)
