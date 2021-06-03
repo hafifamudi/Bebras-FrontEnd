@@ -95,12 +95,13 @@ export default {
     methods:{
         async getGalerys(value){
             this.search = 'photo'
-            let uri = process.env.VUE_APP_API_ENDPOINT + `api/${this.search}/`
 
             if (value){
                 this.search = value
             }
             
+            let uri = process.env.VUE_APP_API_ENDPOINT + `api/${this.search}/`
+
             this.galerys = []
             this.loading = true
             this.refreshCategory()
@@ -142,12 +143,12 @@ export default {
                 const {data} = res.data
                 const {data: getData} = res.data.data
 		
-		if (data.length < 4) {
-			this.loadMoreData = false
-			this.disabled = true
-			console.log('satu')
-			return
-		}
+                if (data.length < 4) {
+                    this.loadMoreData = false
+                    this.disabled = true
+                    console.log('satu')
+                    return
+                }
 
 
                 if (data.current_page <= data.last_page){
@@ -155,9 +156,9 @@ export default {
                     this.disabled = false
                        
                     for (let index = 0; index < getData.length; index++) {
-			this.currentOption = this.search === 'photo' ? this.currentPhoto : this.currentVideo
+                        this.currentOption = this.search === 'photo' ? this.currentPhoto : this.currentVideo
 
-			if (getData[index].id != this.currentOption[index]){
+                        if (getData[index].id != this.currentOption[index]){
                             this.galerys.push(getData[index])
                         }
                         
