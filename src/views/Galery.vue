@@ -100,7 +100,7 @@ export default {
                 this.search = value
             }
 
-            let uri = process.env.VUE_APP_API_ENDPOINT + `api/${this.search}/`
+            let uri = process.env.VUE_APP_API_ENDPOINT + `api/${this.search}?page=`+ this.nextPage;
 
             this.galerys = []
             this.loading = true
@@ -146,7 +146,6 @@ export default {
                 if (data.length < 4) {
                     this.loadMoreData = false
                     this.disabled = true
-                    console.log('satu')
                     return
                 }
 
