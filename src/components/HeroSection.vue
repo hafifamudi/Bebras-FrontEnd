@@ -219,7 +219,7 @@ export default {
 
     async getSlider() {
         await axios
-        .get(process.env.VUE_APP_API_ENDPOINT + 'api/slider/')
+        .get(process.env.VUE_APP_API_ENDPOINT + 'api/slider')
         .then(res => {
           const {data} = res.data.data
 
