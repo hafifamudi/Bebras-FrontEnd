@@ -78,7 +78,7 @@ export default {
             searchKeyword:['Photo', 'Video'],
             loading: true,
             galerys: [],
-            image: axios.defaults.baseURL + 'images/',
+            image: process.env.VUE_APP_API_ENDPOINT  + 'images/',
             loadMoreData: false,
             nextPage: 1,
             currentPhoto:[],
@@ -99,7 +99,7 @@ export default {
             if (value){
                 this.search = value
             }
-            
+
             let uri = process.env.VUE_APP_API_ENDPOINT + `api/${this.search}/`
 
             this.galerys = []
