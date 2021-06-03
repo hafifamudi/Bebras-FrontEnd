@@ -8,7 +8,7 @@ import VueAnimateOnScroll from 'vue-animate-onscroll'
 
 
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000/'
+axios.defaults.baseURL = 'https://bebras-api.herokuapp.com/'
 createApp(App)
     .use(router)
     .use(VueAnimateOnScroll)
