@@ -10,7 +10,7 @@
     
     <div class="container mx-auto px-4 absolute my-20 lg:mx-10"> 
 	<div v-if="!isData">
-		<h1 class="text-center bg-orange-button shadow-lg rounded-20">Data Tidak Tersedia</h1>
+		<h1 class="text-center bg-orange-button shadow-lg rounded-20 my-20">Data Tidak Tersedia</h1>
 	</div>
         <div class="grid grid-cols-1 md:grid-cols-3 md:gap-4">  
             <section class="py-8 px-4" v-for="galery in galerys" :key="galery.id">

@@ -6,7 +6,7 @@
     
     <div class="container my-12 mx-auto px-4 md:grid md:gap-4 md:px-12 absolute my-30 lg:mx-10">
 	<div v-if="!isData">
-		<h1 class="text-center bg-orange-button shadow-lg rounded-20">Data Tidak Tersedia</h1>
+		<h1 class="text-center bg-orange-button shadow-lg rounded-20 my-20">Data Tidak Tersedia</h1>
 	</div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 md:gap-4">

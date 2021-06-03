@@ -10,7 +10,7 @@
     
     <div class="container md:mx-10 my-12 mx-auto px-4 md:px-12 absolute my-30">
 	<div v-if="!isData">
-		<h1 class="text-center bg-orange-button shadow-lg rounded-20">Data Tidak Tersedia</h1>
+		<h1 class="text-center bg-orange-button shadow-lg rounded-20 my-20">Data Tidak Tersedia</h1>
 	</div>
         <div class="grid grid-cols-1 md:grid-cols-3 md:gap-4">
             <div class="card-post flex flex-wrap -mx-1 lg:-mx-4 my-10" v-for="post in posts" :key="post.id">

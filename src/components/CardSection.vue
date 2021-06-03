@@ -12,6 +12,9 @@
           <img src="/loading.svg" class="mx-auto" alt="">
         </div>
 
+      <div v-if="!isData">
+        <h1 class="text-center bg-orange-button shadow-lg rounded-20 my-20">Data Tidak Tersedia</h1>
+      </div>
 
         <div class="container my-12 mx-auto px-4 md:grid md:gap-4 md:grid-cols-3 md:px-12 my-30">
 
@@ -91,6 +94,7 @@ export default {
         image:  process.env.VUE_APP_API_ENDPOINT + 'images/',
         loading: true,
         PostTime: [],
+        isData: true,
     }
   },
     mounted(){
@@ -106,6 +110,8 @@ export default {
           const {data} = res.data.data
           const counter = data.length >= 3 ? 3 : data.length
 
+          if (counter != 0){
+
           for (let index = 0; index < counter; index++) {
             if (data[index].created_at != null){
                 data[index].created_at = data[index].created_at.split('-').join(' ')
@@ -114,7 +120,10 @@ export default {
 
             this.posts.push(data[index]);           
           }
-          
+                      
+          }else {
+            this.isData = false
+          }
 
 
           this.loading = false
