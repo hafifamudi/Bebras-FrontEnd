@@ -95,7 +95,8 @@ export default {
     methods:{
         async getGalerys(value){
             this.search = 'photo'
-            
+            let uri = process.env.VUE_APP_API_ENDPOINT + `api/${this.search}/`
+
             if (value){
                 this.search = value
             }
@@ -103,8 +104,9 @@ export default {
             this.galerys = []
             this.loading = true
             this.refreshCategory()
+
             await axios
-                .get(process.env.VUE_APP_API_ENDPOINT + `api/${this.search}/`)
+                .get(uri)
                 .then(res => {
                 const {data} = res.data.data
                 const counter = data.length >= 3 ? 3 : data.length
