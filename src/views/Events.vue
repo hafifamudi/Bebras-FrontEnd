@@ -5,12 +5,14 @@
     </dv>
     
     <div class="container my-12 mx-auto px-4 md:grid md:gap-4 md:px-12 absolute my-30 lg:mx-10">
+	<div v-if="!isData">
+		<h1 class="text-center bg-orange-button shadow-lg rounded-20">Data Tidak Tersedia</h1>
+	</div>
+
         <div class="grid grid-cols-1 md:grid-cols-3 md:gap-4">
             <div class="card-post -mx-1 lg:-mx-4 my-10" v-for="event in events" :key="event.id">
-
         <!-- Column -->
         <div class="my-1 px-1 w-full md:w-full lg:my-4 lg:px-4 lg:w-full">
-
             <!-- Article -->
             <article class="overflow-hidden rounded-lg shadow-lg">
                 <a href="#">
@@ -24,7 +26,7 @@
                         </a>
                     </h1>
                     <p class="text-grey-darker text-sm">
-                        {{ event.created_at }}
+                        {{ event.date }}
                     </p>
                 </header>
 
@@ -100,9 +102,11 @@ export default {
       return {
         events: [],
         categorys:[],
+        currentEvent:[],
         loading: true,
         nextPage: 1,
         disabled: false,
+        isData: true,
     }
   },
     mounted() {
@@ -115,14 +119,16 @@ export default {
         .get('/api/event')
         .then(res => {
           const {data} = res.data.data
-        
-          for (let index = 0; index < data.length; index++) {
-            if (data[index].created_at != null){
-                data[index].created_at = data[index].created_at.split('-').join(' ')
-                data[index].created_at = data[index].created_at.split('').splice(0,10).join('')
-            }
-
+          const counter = data.length >= 3 ? 3 : data.length
+          
+          if (counter != 0){
+           for (let index = 0; index < counter; index++) {
+            this.currentEvent.push(data[index].id)
             this.events.push(data[index]);           
+          }
+          
+          }else {
+		this.isData = false
           }
 
           this.loading = false
@@ -151,7 +157,9 @@ export default {
                 const {data} = res.data
                 const {data: getData} = res.data.data
                 
-                if (data.total < data.per_page){ 
+              
+                if (data.length < 4){ 
+                    this.loadMoreData = false
                     this.disabled = true
                     
                     return
@@ -161,10 +169,18 @@ export default {
                     this.nextPage = data.current_page + 1
                     this.disabled = false
 
-                    getData.forEach(data => {
-                    this.categorys.push(data)
-                    })
+                     for (let index = 0; index < getData.length; index++) {
+			if (getData[index].id != this.currentEvent[index]){
+				
 
+                            this.events.push(getData[index])
+                        }
+                        
+			if (this.events.length === getData.length) {
+                            this.loadMoreData = false
+                            this.disabled = true
+                        }
+                    }
                 }else{
                     this.loadMoreData = false
                     this.disabled = true

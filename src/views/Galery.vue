@@ -9,12 +9,15 @@
     </div>
     
     <div class="container mx-auto px-4 absolute my-20 lg:mx-10"> 
+	<div v-if="!isData">
+		<h1 class="text-center bg-orange-button shadow-lg rounded-20">Data Tidak Tersedia</h1>
+	</div>
         <div class="grid grid-cols-1 md:grid-cols-3 md:gap-4">  
             <section class="py-8 px-4" v-for="galery in galerys" :key="galery.id">
                 <div class="-mx-4">
 
                 <div class="md:w-full px-4 mb-8 md:mb-0"><img  v-if="galery.image" class="rounded shadow-md" 
-                :src="image+galery.image" alt=""></div>
+                src="https://source.unsplash.com/random" alt=""></div>
                 </div>
 
                 <div id="videos" class="relative mb-5" v-if="galery.link">
@@ -26,7 +29,7 @@
                 <footer class="flex md:w-auto md:flex-col items-center justify-between p-2 md:my-10 md:p-4 bg-green-button rounded-full">
                     <a class="flex items-center no-underline text-black" href="#"> 
                         <img alt="Videos" class="block rounded-full text-center" 
-                        :src="image+galery.image" style="width: 32px; height: 32px;">
+                        src="https://source.unsplash.com/random" style="width: 32px; height: 32px;">
                         <p class="ml-2 text-sm">
                             {{ galery.caption }}
                         </p>
@@ -78,8 +81,12 @@ export default {
             image: axios.defaults.baseURL + 'images/',
             loadMoreData: false,
             nextPage: 1,
+            currentPhoto:[],
+            currentVideo:[],
+            currentOption:[],
             search: String,
-            disabled: false
+            disabled: false,
+            isData: true
         }
     },
     mounted(){
@@ -95,14 +102,28 @@ export default {
             
             this.galerys = []
             this.loading = true
-
+            this.refreshCategory()
             await axios
-            .get(`/api/${this.search}/`)
-            .then(res => {
-            const {data} = res.data.data
-            this.galerys = data
+                .get(`/api/${this.search}/`)
+                .then(res => {
+                const {data} = res.data.data
+                const counter = data.length >= 3 ? 3 : data.length
+		
+		if (counter != 0) {
+                for (let index = 0; index < counter ; index++) {
+                    if (this.search === 'photo') {
+			this.currentPhoto.push(data[index].id)
+                    } else if (this.search === 'video') {
+			this.currentVideo.push(data[index].id)
+                    }
 
-            this.loading = false
+                    this.galerys.push(data[index])      
+                }
+		}
+		else{
+			this.isData = false
+		}
+                this.loading = false
             })
             .catch(err => console.log(err))
         },
@@ -110,38 +131,55 @@ export default {
         async loadMore() {
             let uri = `/api/${this.search}?page=`+ this.nextPage;
 
-          
+
             await axios
                 .get(uri)
                 .then(res => {
                 const {data} = res.data
                 const {data: getData} = res.data.data
-                
-                if (data.total < data.per_page){ 
-                    this.disabled = true
-                    
-                    return
-                }
+		
+		if (data.length < 4) {
+			this.loadMoreData = false
+			this.disabled = true
+			console.log('satu')
+			return
+		}
+
 
                 if (data.current_page <= data.last_page){
                     this.nextPage = data.current_page + 1
                     this.disabled = false
+                       
+                    for (let index = 0; index < getData.length; index++) {
+			this.currentOption = this.search === 'photo' ? this.currentPhoto : this.currentVideo
 
-                    getData.forEach(data => {
-                    this.galerys.push(data)
-                    })
+			if (getData[index].id != this.currentOption[index]){
+                            this.galerys.push(getData[index])
+                        }
+                        
+                        if (this.galerys.length === data.length) {
+                            this.loadMoreData = false
+                            this.disabled = true
+                        }
+                    }
+
 
                 }else{
                     this.loadMoreData = false
                     this.disabled = true
+                    this.nextPage = 1
                 }
 
-              
-               
+             
                 this.loading = false
                 })
                 .catch(err => console.log(err))
         },
+        
+        async refreshCategory(){
+		this.loadMoreData = true
+		this.disabled = false
+        }
     }
 }
 </script>
