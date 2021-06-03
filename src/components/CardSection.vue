@@ -91,7 +91,6 @@ export default {
         image:  process.env.VUE_APP_API_ENDPOINT + 'images/',
         loading: true,
         PostTime: [],
-        perPage: 3,
     }
   },
     mounted(){
@@ -99,12 +98,15 @@ export default {
     },
     methods: {
       async getAllPosts() {
+        let uri = process.env.VUE_APP_API_ENDPOINT  + 'api/post'
+
         await axios
-        .get(process.env.VUE_APP_API_ENDPOINT + 'api/post/')
+        .get(uri)
         .then(res => {
           const {data} = res.data.data
-          console.log(process.env.VUE_APP_API_ENDPOINT)
-          for (let index = 0; index < this.perPage; index++) {
+          const counter = data.length >= 3 ? 3 : data.length
+
+          for (let index = 0; index < counter; index++) {
             if (data[index].created_at != null){
                 data[index].created_at = data[index].created_at.split('-').join(' ')
                 data[index].created_at = data[index].created_at.split('').splice(0,10).join('')
