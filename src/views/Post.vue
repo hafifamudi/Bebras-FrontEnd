@@ -5,7 +5,7 @@
             <div  v-if="loading" class="loading my-20">
                 <img src="/loading.svg" class="mx-auto" alt="">
             </div>
-                <img class="rounded-20" src="https://source.unsplash.com/random" alt="">
+                <img class="rounded-20" :src="image+post.image" alt="">
                     <div class="content-post">
                         <h2><strong>{{post.title}}</strong></h2>
                         <h3><span v-html="post.content"></span></h3>
@@ -100,7 +100,7 @@ export default {
     data() {
         return {
             post: [],
-            image: axios.defaults.baseURL + 'images/',
+            image: process.env.VUE_APP_IMAGE_URL,
             loading: true
         }
     },

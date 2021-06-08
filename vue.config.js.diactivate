@@ -2,7 +2,7 @@ module.exports = {
   devServer: {
     proxy: {
       '^/api': {
-        target: "http://bebras-api.herokuapp.com",
+        target: "localhost:8000",
         changeOrigin: true
       },
     }

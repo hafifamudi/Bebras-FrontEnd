@@ -28,7 +28,7 @@
             <!-- Article -->
             <article class="overflow-hidden rounded-lg shadow-lg">
                 <a href="#">
-                    <img alt="Placeholder" class="block h-auto w-full" src="https://source.unsplash.com/random">
+                    <img alt="Placeholder" class="block h-auto w-full" :src="image+post.image">
                 </a>
 
                 <header class="flex items-center justify-between leading-tight p-2 md:p-4 bg-white">
@@ -44,7 +44,7 @@
 
                 <footer class="flex md:flex-col items-center justify-between leading-none p-2 md:p-4 bg-white">
                     <a class="flex items-center no-underline hover:underline text-black" href="#"> 
-                        <img alt="Placeholder" class="block rounded-full" src="https://source.unsplash.com/random" style="width: 32px; height: 32px;">
+                        <img alt="Placeholder" class="block rounded-full" :src="image+post.image" style="width: 32px; height: 32px;">
                         <p class="ml-2 text-sm">
 				<span v-html="post.content"></span>
                         </p>
@@ -91,7 +91,7 @@ export default {
     data() {
       return {
         posts: [],
-        image:  process.env.VUE_APP_API_ENDPOINT + 'images/',
+        image:  process.env.VUE_APP_IMAGE_URL,
         loading: true,
         PostTime: [],
         isData: true,
@@ -103,7 +103,7 @@ export default {
     methods: {
       async getAllPosts() {
         let uri = process.env.VUE_APP_API_ENDPOINT  + 'api/post'
-
+        console.log(uri)
         await axios
         .get(uri)
         .then(res => {

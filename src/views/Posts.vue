@@ -21,7 +21,7 @@
                         <!-- Article -->
                         <article class="overflow-hidden rounded-lg shadow-lg">
                             <a href="#">
-                                <img alt="Placeholder" class="block h-auto w-full" src="https://source.unsplash.com/random">
+                                <img alt="Placeholder" class="block h-auto w-full" :src="image+post.image">
                             </a>
 
                             <header class="flex items-center justify-between leading-tight p-2 md:p-4 bg-white">
@@ -103,7 +103,7 @@ export default {
         categorys:[],
         currentPost:[],
         loading: true,
-        image: process.env.VUE_APP_API_ENDPOINT  + 'images/',
+        image: process.env.VUE_APP_IMAGE_URL,
         disabled: false,
         isData: true,
     }

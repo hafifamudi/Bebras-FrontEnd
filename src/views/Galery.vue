@@ -17,7 +17,7 @@
                 <div class="-mx-4">
 
                 <div class="md:w-full px-4 mb-8 md:mb-0"><img  v-if="galery.image" class="rounded shadow-md" 
-                src="https://source.unsplash.com/random" alt=""></div>
+                :src="image+galery.image" alt=""></div>
                 </div>
 
                 <div id="videos" class="relative mb-5" v-if="galery.link">
@@ -29,7 +29,7 @@
                 <footer class="flex md:w-auto md:flex-col items-center justify-between p-2 md:my-10 md:p-4 bg-green-button rounded-full">
                     <a class="flex items-center no-underline text-black" href="#"> 
                         <img alt="Videos" class="block rounded-full text-center" 
-                        src="https://source.unsplash.com/random" style="width: 32px; height: 32px;">
+                        :src="image+galery.image" style="width: 32px; height: 32px;">
                         <p class="ml-2 text-sm">
                             {{ galery.caption }}
                         </p>
@@ -78,7 +78,7 @@ export default {
             searchKeyword:['Photo', 'Video'],
             loading: true,
             galerys: [],
-            image: process.env.VUE_APP_API_ENDPOINT  + 'images/',
+            image: process.env.VUE_APP_IMAGE_URL,
             loadMoreData: false,
             nextPage: 1,
             currentPhoto:[],
@@ -101,7 +101,7 @@ export default {
             }
 
             let uri = process.env.VUE_APP_API_ENDPOINT + `api/${this.search}?page=`+ this.nextPage;
-
+            console.log(uri)
             this.galerys = []
             this.loading = true
             this.refreshCategory()
@@ -111,7 +111,7 @@ export default {
                 .then(res => {
                 const {data} = res.data.data
                 const counter = data.length >= 3 ? 3 : data.length
-		
+
             if (counter != 0) {
                 for (let index = 0; index < counter ; index++) {
 
@@ -122,7 +122,7 @@ export default {
                         this.currentVideo.push(data[index].id)
                     }
 
-                    this.galerys.push(data[index])      
+                    this.galerys.push(data[index])     
                 }
 		}
 		else{			
@@ -160,10 +160,11 @@ export default {
                         if (getData[index].id != this.currentOption[index]){
                             this.galerys.push(getData[index])
                         }
-                        
-                        if (this.galerys.length === data.length) {
+
+                        if (this.galerys.length === getData.length) {
                             this.loadMoreData = false
                             this.disabled = true
+                            this.nextPage = 1
                         }
                     }
 

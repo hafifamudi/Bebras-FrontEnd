@@ -131,7 +131,7 @@ export default {
    data(){
        return {
             slider: [],
-            image: process.env.VUE_APP_API_ENDPOINT + 'images/',
+            image: process.env.VUE_APP_IMAGE_URL,
             timer: null,
             currentIndex: 1,
             animateClass: 1,
